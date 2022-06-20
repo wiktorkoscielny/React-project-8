@@ -1,0 +1,28 @@
+{
+  "todos": [
+    {
+      "firstName": "Jan",
+      "id": 1
+    },
+    {
+      "firstName": "Janina",
+      "id": 2
+    },
+    {
+      "firstName": "Jarosław",
+      "id": 3
+    },
+    {
+      "firstName": "Adam",
+      "id": 4
+    },
+    {
+      "firstName": "Zbigniew",
+      "id": 5
+    },
+    {
+      "firstName": "James",
+      "id": 6
+    }
+  ]
+}

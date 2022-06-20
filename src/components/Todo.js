@@ -3,12 +3,13 @@ import React, { Component } from 'react'
 import axios from 'axios'
 
 export class Todo extends Component {
+    // add to the browser cache ?
     state = {
         state1: '',
         todos: [
             {
                 firstName: '',
-                id: '' 
+                id: ''
             }
         ]
     }
@@ -21,7 +22,7 @@ export class Todo extends Component {
             const todos = res.data;
             // console.log(todos)
             this.setState({
-              ...todos,
+              // ...todos,
               todos
             });
           })
@@ -34,21 +35,30 @@ export class Todo extends Component {
 
     // changing state value
     handleChange = (e, name) => {
-        console.log(e.target.value);
+        // console.log(e.target.value);
         this.setState({
             [name]: e.target.value
         })
     }
 
     // posting state value to json, setting new state
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault()
+
+        // to fake array (json data) expand
+        const todos = this.state.todos;
+        const lastItem = todos[todos.length - 1];
+        const lastId = lastItem.id;
+
         // Save data on json
-        axios.post(`https://my-json-server.typicode.com/wiktorkoscielny/React-project-8/todos`, {
+        await axios.post(`https://my-json-server.typicode.com/wiktorkoscielny/React-project-8/todos`, {
           firstName: this.state.state1,
+
+          // to fake id increase
+          id: lastId + 1
         })
           .then(res => {
-            // console.log(res.data);
+            console.log(res.data);
             this.setState({
               state1: '',
               todos: [
@@ -67,12 +77,12 @@ export class Todo extends Component {
         // Remove item from UI 
         const todos = this.state.todos.filter(item => item.id !== id);
         this.setState({ todos });
-    
-        // Delete data from backend 
-        axios.delete(`https://my-json-server.typicode.com/wiktorkoscielny/React-project-8/todos/${id}`)
-          .then(res => {
-            console.log(res.data);
-          })
+        
+        // Delete data from backend - but here i'm using fake data
+        // axios.delete(`https://my-json-server.typicode.com/wiktorkoscielny/React-project-8/todos/${id}`)
+        //   .then(res => {
+        //     console.log(res.data);
+        // })
       };
 
     render() {

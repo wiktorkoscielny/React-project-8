@@ -17,8 +17,9 @@ export class Todo extends Component {
         ]
     }
 
-    fetchTodo = async () => {
-         await axios.get(getUrl, {
+// fetching data
+    fetchTodo = () => {
+          axios.get(getUrl, {
             headers: {
                 'X-Master-Key': secretKey,
             }
@@ -26,30 +27,76 @@ export class Todo extends Component {
             console.log(res);
             const todos = (res.data);
             this.setState(todos);
+            //...todos
             // console.log(todos);
         })
     }
 
+// mounting component
     componentDidMount() {
         this.fetchTodo()
       }
+
+// changing state value
+handleOnChange = (e, name) => {
+    console.log(e.target.value);
+    this.setState({
+        [name]: e.target.value
+    })
+}
+
+// posting new state
+handleSubmit = async (e) => {
+    e.preventDefault();
+    // saving data on JSONbin
+    await axios.put(getUrl, {
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Master-Key': secretKey,
+        },
+    }, {
+        firstName: this.state.state1,
+    }).then(res => {
+        console.log(res);
+        this.setState({
+            state1: '',
+            todos: [
+               ...this.state.todos,
+                {
+                    firstName: res.data.firstName,
+                }
+            ]
+        });
+    })
+}
+
+componentDidUpdate(prevProps) {
+
+}
 
     render() {
         return (
             <div className='container'>
                 <div className='container__label'>
-                    <label>First Name:</label>
-                    <input
-                        type='text'
+                    <form
+                        onSubmit={(e) => this.handleSubmit(e)}
                     >
-                    </input>
-                    <button type='submit'>Add</button>
+                        <label>First Name:</label>
+                        <input
+                            type='text'
+                            value={this.state.state1}
+                            onChange={(e) => this.handleOnChange(e, 'state1')}
+                        >
+                        </input>
+
+                        <button type='submit'>Add</button>
+                    </form>
                 </div>
 
                 {this.state.todos.map((todo) => {
                     return(
                         <ul key={todo.id}>
-                            <li>{todo.firstName}</li>
+                            <li key={todo.id}>{todo.firstName}</li>
                         </ul>
                     )
                 })}

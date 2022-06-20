@@ -13,27 +13,24 @@ export class Todo extends Component {
         ]
     }
 
-// fetching data
+    // fetching data
     fetchTodo = () => {
-          axios.get(getUrl, {
-            headers: {
-                'X-Master-Key': secretKey,
-            }
-        }).then(res => {
-            console.log(res);
-            const todos = (res.data);
-            this.setState(todos);
-            //...todos
-            // console.log(todos);
-        })
+        axios.get(`https://my-json-server.typicode.com/wiktorkoscielny/React-project-8/todos`)
+          .then(res => {
+            // console.log(res)
+            const todos = res.data;
+            // console.log(todos)
+            this.setState({
+              ...todos,
+              todos
+            });
+          })
     }
 
-// mounting component
+    // mounting component
     componentDidMount() {
         this.fetchTodo()
-      }
-
-
+    }
 
     render() {
         return (

@@ -62,6 +62,19 @@ export class Todo extends Component {
         })
     }
 
+    // removing data from json and ui
+    removeTodo = id => {
+        // Remove item from UI 
+        const todos = this.state.todos.filter(item => item.id !== id);
+        this.setState({ todos });
+    
+        // Delete data from backend 
+        axios.delete(`https://my-json-server.typicode.com/wiktorkoscielny/React-project-8/todos/${id}`)
+          .then(res => {
+            console.log(res.data);
+          })
+      };
+
     render() {
         return (
             <div className='container'>
@@ -88,6 +101,12 @@ export class Todo extends Component {
                     return(
                         <ul key={todo.id}>
                             <li key={todo.id}>{todo.firstName}</li>
+                            {/* DELETE */}
+                            <button
+                                onClick={(event) => this.removeTodo(todo.id)}
+                            >
+                                X
+                            </button>
                         </ul>
                     )
                 })}

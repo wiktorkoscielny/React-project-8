@@ -42,6 +42,7 @@ export class Todo extends Component {
     }
 
     // posting state value to json, setting new state
+    // it is not working as live server (typicode-json) and therefore id is the same
     handleSubmit = (event) => {
         event.preventDefault()
         const serverLink = `https://my-json-server.typicode.com/wiktorkoscielny/React-project-8/todos`;

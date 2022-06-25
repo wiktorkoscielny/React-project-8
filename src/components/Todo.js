@@ -42,23 +42,17 @@ export class Todo extends Component {
     }
 
     // posting state value to json, setting new state
-    handleSubmit = async (event) => {
+    handleSubmit = (event) => {
         event.preventDefault()
-
-        // to fake array (json data) expand
+        const serverLink = `https://my-json-server.typicode.com/wiktorkoscielny/React-project-8/todos`;
         const todos = this.state.todos;
-        const lastItem = todos[todos.length - 1];
-        const lastId = lastItem.id;
-
-        // Save data on json
-        await axios.post(`https://my-json-server.typicode.com/wiktorkoscielny/React-project-8/todos`, {
-          firstName: this.state.state1,
-
-          // to fake id increase
-          id: lastId + 1
-        })
+        // save data on json
+        axios.post(serverLink, 
+          {
+            firstName: this.state.state1
+          })
           .then(res => {
-            console.log(res.data);
+            console.log(todos.length);
             this.setState({
               state1: '',
               todos: [
@@ -77,7 +71,7 @@ export class Todo extends Component {
         // Remove item from UI 
         const todos = this.state.todos.filter(item => item.id !== id);
         this.setState({ todos });
-        
+        console.log(this.state)
         // Delete data from backend - but here i'm using fake data
         // axios.delete(`https://my-json-server.typicode.com/wiktorkoscielny/React-project-8/todos/${id}`)
         //   .then(res => {
@@ -107,10 +101,10 @@ export class Todo extends Component {
                 </div>
 
 
-                {this.state.todos.map((todo) => {
+                {this.state.todos.map((todo, index) => {
                     return(
-                        <ul key={todo.id}>
-                            <li key={todo.id}>{todo.firstName}</li>
+                        <ul key={index}>
+                            <li>{todo.firstName}</li>
                             {/* DELETE */}
                             <button
                                 onClick={(event) => this.removeTodo(todo.id)}

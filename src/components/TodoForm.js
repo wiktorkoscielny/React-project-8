@@ -1,39 +1,63 @@
 import React from 'react'
 
+// styles
+import styled from "styled-components";
+
+const FormWrapper = styled.div`
+    display: grid;
+    grid-template-colums: repeat(6, 1fr);
+    margin-top: 50px;
+`
+const FormItems = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    padding: 10px; 
+`
+
+
 export const TodoForm = (props) => {
   return (
     <>
         {/* FORM */}
-        <div className='container__label'>
+        <FormWrapper>
+
+            <h1>Menage data from API with React and Axios</h1>
             <form
-                onSubmit={(e) => props.handleSubmit(e)}
+                onSubmit={(event) => props.handleSubmit(event)}
             >
-                    <label>First Name:</label>
+                <FormItems>
                     <input
                         type='text'
+                        placeholder='First Name'
                         value={props.state1}
                         onChange={(e) => props.handleChange(e, 'state1')}
                     >
                     </input>
-
-                    <label>Last Name:</label>
+                </FormItems>
+                <FormItems>
                     <input
                         type='text'
+                        placeholder='Last Name'
                         value={props.state2}
                         onChange={(e) => props.handleChange(e, 'state2')}
                     >
                     </input>
-
-                    <label>Salary:</label>
+                </FormItems>
+                <FormItems>
                     <input
                         type='number'
+                        placeholder='Salary'
                         value={props.state3}
                         onChange={(e) => props.handleChange(e, 'state3')}
                     >
                     </input>
-                <button type='submit'>Add</button>
+                </FormItems>
+                <FormItems>
+                    <button type='submit'>Add</button>
+                </FormItems>
             </form>
-        </div>
+        </FormWrapper>
     </>
   )
 }

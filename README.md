@@ -1,5 +1,5 @@
 # React todo app
-check how this [project](https://wiktorkoscielny.github.io/React-project-8/) works!
+Check how this [project](https://wiktorkoscielny.github.io/React-project-8/) works!
 
 ## Table of contents
 * [General info](#general-info)

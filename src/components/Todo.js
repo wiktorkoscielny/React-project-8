@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-
 import axios from 'axios'
 
 export class Todo extends Component {
-    // add to the browser cache ?
     state = {
         state1: '',
         todos: [
@@ -42,29 +40,51 @@ export class Todo extends Component {
     }
 
     // posting state value to json, setting new state
-    // it is not working as live server (typicode-json) and therefore id is the same
+    // if statement is necessary due to fake typicode live server
     handleSubmit = (event) => {
         event.preventDefault()
         const serverLink = `https://my-json-server.typicode.com/wiktorkoscielny/React-project-8/todos`;
         const todos = this.state.todos;
-        // save data on json
-        axios.post(serverLink, 
-          {
-            firstName: this.state.state1
-          })
-          .then(res => {
-            console.log(todos.length);
-            this.setState({
-              state1: '',
-              todos: [
-                ...this.state.todos,
+      
+        if ( todos.length === 0) {
+            axios.post(serverLink, 
                 {
-                  firstName: res.data.firstName,
-                  id: res.data.id
-                }
-              ]
-            })
-        })
+                  firstName: this.state.state1,
+                  id: 1
+                })
+                .then(res => {
+                  // console.log(todos.length);
+                  this.setState({
+                    state1: '',
+                    todos: [
+                      ...this.state.todos,
+                      {
+                        firstName: res.data.firstName,
+                        id: res.data.id
+                      }
+                    ]
+                  })
+              })
+        } else if (todos.length > 0) {
+            axios.post(serverLink, 
+                {
+                  firstName: this.state.state1,
+                  id: todos[todos.length - 1].id + 1
+                })
+                .then(res => {
+                  // console.log(todos.length);
+                  this.setState({
+                    state1: '',
+                    todos: [
+                      ...this.state.todos,
+                      {
+                        firstName: res.data.firstName,
+                        id: res.data.id
+                      }
+                    ]
+                  })
+              })
+        }
     }
 
     // removing data from json and ui
@@ -72,7 +92,7 @@ export class Todo extends Component {
         // Remove item from UI 
         const todos = this.state.todos.filter(item => item.id !== id);
         this.setState({ todos });
-        console.log(this.state)
+        // console.log(this.state)
         // Delete data from backend - but here i'm using fake data
         // axios.delete(`https://my-json-server.typicode.com/wiktorkoscielny/React-project-8/todos/${id}`)
         //   .then(res => {
@@ -83,9 +103,7 @@ export class Todo extends Component {
     render() {
         return (
             <div className='container'>
-                
                 {/* FORM */}
-
                 <div className='container__label'>
                         <form
                             onSubmit={(e) => this.handleSubmit(e)}

@@ -142,7 +142,7 @@ export class Todo extends Component {
                 {/* FORM */}
                    <FormWrapper>
 
-                    <h1>Menage data from API with React and Axios</h1>
+                    <h1>Menage data with React and Axios</h1>
                     <form
                         onSubmit={(event) => this.handleSubmit(event)}
                     >

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // styles
 import styled from "styled-components";
@@ -12,10 +12,21 @@ const TableWrapper = styled.div`
 `
 
 export const TodoList = (props) => {
+    const [query, SetQuery] = useState('');
 
   return (
     <>
         <section>
+                {/* input field */}
+
+                  <input 
+                    type='text' 
+                    placeholder='Search...' 
+                    onChange={(e) => SetQuery(e.target.value)}
+                  >
+
+                  </input>
+      
             <TableWrapper>
                 <table border='3'>
                         <caption>Users</caption>
@@ -28,7 +39,7 @@ export const TodoList = (props) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {props.todos.map((todo, index) => {
+                            {props.todos.filter(todo => (todo.firstName, todo.lastName).toLowerCase().includes(query.toLowerCase())).map((todo, index) => {
                                 return(
                                     <tr key={index}>
                                         <td>{todo.firstName}</td>

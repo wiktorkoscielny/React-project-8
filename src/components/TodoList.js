@@ -39,7 +39,13 @@ export const TodoList = (props) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {props.todos.filter(todo => (todo.firstName, todo.lastName).toLowerCase().includes(query.toLowerCase())).map((todo, index) => {
+                            {props.todos.filter(todo =>{
+                                return (
+                                    todo.firstName.toLowerCase().indexOf(query.toLowerCase()) >= 0 ||
+                                    todo.lastName.toLowerCase().indexOf(query.toLowerCase()) >= 0
+                                  )}
+                                )
+                            .map((todo, index) => {
                                 return(
                                     <tr key={index}>
                                         <td>{todo.firstName}</td>

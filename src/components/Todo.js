@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
+// components
+import { TodoForm } from './TodoForm'
+import { TodoList } from './TodoList'
+
 export class Todo extends Component {
     state = {
         state1: '',
@@ -65,7 +69,7 @@ export class Todo extends Component {
                     ]
                   })
               })
-        } else if (todos.length > 0) {
+        } else {
             axios.post(serverLink, 
                 {
                   firstName: this.state.state1,
@@ -103,36 +107,20 @@ export class Todo extends Component {
     render() {
         return (
             <div className='container'>
+
                 {/* FORM */}
-                <div className='container__label'>
-                        <form
-                            onSubmit={(e) => this.handleSubmit(e)}
-                        >
-                            <label>First Name:</label>
-                            <input
-                                type='text'
-                                value={this.state.state1}
-                                onChange={(e) => this.handleChange(e, 'state1')}
-                            >
-                            </input>
-                            <button type='submit'>Add</button>
-                        </form>
-                </div>
+                <TodoForm 
+                    handleSubmit={this.handleSubmit}
+                    handleChange={this.handleChange}
+                    value={this.state.state1}
+                />
 
-
-                {this.state.todos.map((todo, index) => {
-                    return(
-                        <ul key={index}>
-                            <li>{todo.firstName}</li>
-                            {/* DELETE */}
-                            <button
-                                onClick={(event) => this.removeTodo(todo.id)}
-                            >
-                                X
-                            </button>
-                        </ul>
-                    )
-                })}
+                {/* DATA MAP */}
+                <TodoList 
+                    todos={this.state.todos}
+                    removeTodo={this.removeTodo}
+                />
+                
             </div>
         )
     }

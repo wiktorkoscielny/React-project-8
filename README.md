@@ -8,11 +8,6 @@ check how this [project](https://wiktorkoscielny.github.io/React-project-8/) wor
 ## General info
 This is simply Todo App made with React and axios module to menage data from typicode json server which is faking live server.
 
-I'm still working on some functionalities...
-- [x] Salary sum
-- [ ] Search
-
-
 ## Setup
 
 1. Installed __json-server__ with `npm install --save json-server`

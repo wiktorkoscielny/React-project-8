@@ -28,7 +28,7 @@ export class Todo extends Component {
             const todos = res.data;
             // console.log(todos)
             this.setState({
-              // ...todos,
+              ...todos,
               todos
             });
           })
@@ -54,7 +54,7 @@ export class Todo extends Component {
         const serverLink = `https://my-json-server.typicode.com/wiktorkoscielny/React-project-8/todos`;
         const todos = this.state.todos;
       
-        if ( todos.length === 0) {
+        if (todos.length === 0) {
             axios.post(serverLink, 
                 {
                   firstName: this.state.state1,
@@ -79,7 +79,7 @@ export class Todo extends Component {
                     ]
                   })
               })
-        } else {
+        } else if (todos.length > 0) {
             axios.post(serverLink, 
                 {
                   firstName: this.state.state1,
@@ -124,8 +124,7 @@ export class Todo extends Component {
 
         const sumOfSalary = this.state.todos.reduce((acc, i) => acc + parseInt(i.salary), 0);
         return (
-            <div className='container'>
-
+            <>
                 {/* FORM */}
                 <TodoForm 
                     handleSubmit={this.handleSubmit}
@@ -141,10 +140,8 @@ export class Todo extends Component {
                     todos={this.state.todos}
                     removeTodo={this.removeTodo}
                     sumOfSalary={sumOfSalary}
-                />
-                
-                
-            </div>
+                />    
+            </>
         )
     }
 }

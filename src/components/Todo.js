@@ -2,8 +2,22 @@ import React, { Component } from 'react'
 import axios from 'axios'
 
 // components
-import { TodoForm } from './TodoForm'
 import { TodoList } from './TodoList'
+
+// styles
+import styled from "styled-components";
+
+const FormWrapper = styled.div`
+    display: grid;
+    grid-template-colums: repeat(6, 1fr);
+    margin-top: 50px;
+`
+const FormItems = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    padding: 10px; 
+`
 
 export class Todo extends Component {
     state = {
@@ -126,15 +140,44 @@ export class Todo extends Component {
         return (
             <>
                 {/* FORM */}
-                <TodoForm 
-                    handleSubmit={this.handleSubmit}
-                    handleChange={this.handleChange}
-                    value1={this.state.state1}
-                    value2={this.state.state2}
-                    value3={this.state.state3}
-                    sumOfSalary={this.sumOfSalary}
-                />
+                   <FormWrapper>
 
+                    <h1>Menage data from API with React and Axios</h1>
+                    <form
+                        onSubmit={(event) => this.handleSubmit(event)}
+                    >
+                      <FormItems>
+                          <input
+                              type='text'
+                              placeholder='First Name'
+                              value={this.state.state1}
+                              onChange={(e) => this.handleChange(e, 'state1')}
+                          >
+                          </input>
+                      </FormItems>
+                      <FormItems>
+                          <input
+                              type='text'
+                              placeholder='Last Name'
+                              value={this.state.state2}
+                              onChange={(e) => this.handleChange(e, 'state2')}
+                          >
+                          </input>
+                      </FormItems>
+                      <FormItems>
+                          <input
+                              type='number'
+                              placeholder='Salary'
+                              value={this.state.state3}
+                              onChange={(e) => this.handleChange(e, 'state3')}
+                          >
+                          </input>
+                      </FormItems>
+                      <FormItems>
+                          <button type='submit'>Add</button>
+                      </FormItems>
+                    </form>
+                  </FormWrapper>
                 {/* DATA MAP */}
                 <TodoList 
                     todos={this.state.todos}
